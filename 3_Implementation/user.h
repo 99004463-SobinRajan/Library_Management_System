@@ -65,8 +65,8 @@ public:
 class librarian: public user
 {
 private:
-    std::string username;
-    std::string password;
+    std::string l_username;
+    std::string l_password;
 public:
     librarian(std::string name, int id, std::string role, std::string address);
     void setUsername(const std::string username);
