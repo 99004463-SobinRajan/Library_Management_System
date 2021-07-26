@@ -79,7 +79,7 @@ Book* Library::findBookByID(int id){
     return NULL;
 }
 
-//error
+
 double Library::findAveragePrice(){
     double sum=0;
     std::list<Book> :: iterator p;
@@ -90,7 +90,7 @@ double Library::findAveragePrice(){
     return avg;
 }
 
-//error
+
 Book Library::findBookWithMaxPages(){
     int max=INT_MIN;
     // int id=0;
@@ -129,7 +129,7 @@ Book Library::findBookWithMinPrice(){
     return *miniter;
 }
 
-//error
+
 double Library::findAveragePriceByPublisher(std::string publisher){
     double sum=0;
     int count = 0;
@@ -197,6 +197,16 @@ librarian* Library::getLibrarianByUsername(std::string username){
     }
     return NULL;
     
+}
+student* Library::getStudentById(int id){
+    std::list<student> :: iterator p;
+    for(p=students.begin();p!=students.end();p++){
+        if(p->getId()==id){
+            return &(*p);
+        }
+    }
+    return NULL;
+
 } 
 
 bool Library::authenticate(std::string username, std::string password){
@@ -267,8 +277,25 @@ bool Library::acceptIssueBook(){
 		exit(2);
 	}
 	buf[nbytes]='\0';
-	printf("receive msg:%s,nbytes=%d,prio=%d\n",buf,nbytes,prio);
+	// printf("receive msg:%s,nbytes=%d,prio=%d\n",buf,nbytes,prio);
+    std::string str = buf;
+    std::string delimiter = ",";
+    int sid = std::stoi(str.substr(0, str.find(delimiter)));
+    int bid = std::stoi(str.substr(str.find(delimiter), str.size()));
+    student *stu = getStudentById(sid);
+    Book *book = findBookByID(bid);
+
+    stu->setLastIssuedBookId(book->GetId());
+
+    std::time_t t = std::time(0);   // get time now
+    std::tm* now = std::localtime(&t);
+    std::stringstream date;
+    date<<now->tm_mday<<'/'<<(now->tm_mon + 1)<<'/'<<(now->tm_year + 1900) <<"\n";
+    std::string datee = date.str();
+    stu->setDate(datee);
+    stu->setFineDue(0);
 	mq_close(mqid);
+    std::cout<<"Book Issued"<<std::endl;
     return true;
 
 
