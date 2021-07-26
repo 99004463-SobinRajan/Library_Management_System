@@ -14,7 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make
-      run: make
-    - name: make cppcheck
-      run: make cppcheck
+      run: 3_Implementation/make
+#     - name: make cppcheck
+#       run: 
+#         cd 3_Implementation
+#         make cppcheck
 
