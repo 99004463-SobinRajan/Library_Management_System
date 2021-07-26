@@ -3,8 +3,12 @@
 #include"book.h"
 #include"user.h"
 #include"iostream"
+#include<mqueue.h>
+#include<fcntl.h>
+#include<unistd.h>
 #include <bits/stdc++.h>
 #include"list"
+
 
 class Library
 {
@@ -28,6 +32,8 @@ public:
     Book findMinOfPublisher(std::string publisher);
     librarian* getLibrarianByUsername(std::string username);
     bool authenticate(std::string username, std::string password);
+    bool orderIssueBook(int stu_id, int b_id);
+    bool acceptIssueBook();
 
 
     ~Library();
