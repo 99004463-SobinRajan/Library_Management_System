@@ -86,13 +86,13 @@ void student::setDate(const std::string date){
 }
 
 
-void student::issueBook(){
+// void student::issueBook(){
     
-}
+// }
 
-void student::returnBook(){
+// void student::returnBook(){
     
-}
+// }
 
 student::~student()
 {
@@ -122,13 +122,13 @@ std::string librarian::getPassword() const{
     return l_password;
 }
 
-void librarian::issueBook(){
+// void librarian::issueBook(){
     
-}
+// }
 
-void librarian::returnBook(){
+// void librarian::returnBook(){
     
-}
+// }
 
 librarian::~librarian()
 {

@@ -131,14 +131,17 @@ Book Library::findBookWithMinPrice(){
 //error
 double Library::findAveragePriceByPublisher(std::string publisher){
     double sum=0;
+    int count = 0;
     std::list<Book> :: iterator p;
     for(p=books.begin();p!=books.end();p++){
         if (p->GetPublisher()==publisher)
         {
             sum=sum+p->GetPrice();
+            count++;
         }   
     }
-    double avg=sum/books.size();
+    
+    double avg=sum/count;
     return avg;
 }
 
@@ -183,6 +186,28 @@ Book Library::findMinOfPublisher(std::string publisher){
     return *miniter;
 }
 
+librarian* Library::getLibrarianByUsername(std::string username){
+    std::list<librarian> :: iterator p;
+    for (p=librarians.begin(); p!=librarians.end(); p++)
+    {
+        if(p->getUsername()==username){
+            return &(*p);
+        }
+    }
+    return NULL;
+    
+} 
+
+bool Library::authenticate(std::string username, std::string password){
+    librarian *ptr = getLibrarianByUsername(username);
+    if(ptr->getPassword()==password){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 Library::~Library()
 {
     std::fstream fdes;
@@ -195,9 +220,11 @@ Library::~Library()
     }
 }
 
-int main(){
-    Library l1;
-    l1.addBook(1, "Game of thrones", "George RR Mrtin", "Harper Voyager", 599, 801);
-    // Book *ptr= l1.findBookByID(1);
-    // std::cout<< ptr->GetId()<<std::endl;
-}
+
+
+// int main(){
+//     Library l1;
+//     l1.addBook(1, "Game of thrones", "George RR Mrtin", "Harper Voyager", 599, 801);
+//     // Book *ptr= l1.findBookByID(1);
+//     // std::cout<< ptr->GetId()<<std::endl;
+// }
