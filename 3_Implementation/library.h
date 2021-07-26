@@ -6,6 +6,8 @@
 #include<mqueue.h>
 #include<fcntl.h>
 #include<unistd.h>
+#include <ctime>
+#include <sstream>
 #include <bits/stdc++.h>
 #include"list"
 
@@ -30,6 +32,7 @@ public:
     int countBookAtRange(int start, int end);
     int countBookLessThan(int limit);
     Book findMinOfPublisher(std::string publisher);
+    student* getStudentById(int id);
     librarian* getLibrarianByUsername(std::string username);
     bool authenticate(std::string username, std::string password);
     bool orderIssueBook(int stu_id, int b_id);
