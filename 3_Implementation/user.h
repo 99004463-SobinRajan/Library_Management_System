@@ -26,8 +26,8 @@ public:
     void setAddress(const std::string address);
     std::string getAddress() const;
 
-    virtual void issueBook() = 0;
-    virtual void returnBook() = 0;
+    // virtual void issueBook() = 0;
+    // virtual void returnBook() = 0;
     
     ~user();
 };
@@ -57,8 +57,8 @@ public:
     void setStatus(const std::string status);
     std::string getStatus() const;
 
-    void issueBook();
-    void returnBook();
+    // void issueBook();
+    // void returnBook();
     ~student();
 };
 
@@ -74,8 +74,8 @@ public:
     void setPassword(const std::string password);
     std::string getPassword() const;
 
-    void issueBook();
-    void returnBook();
+    // void issueBook();
+    // void returnBook();
     // void changeFine();
     ~librarian();
 };
