@@ -3,6 +3,7 @@
 #include"iostream"
 #include<fstream>
 #include<string>
+#include<mqueue.h>
 #include<sstream>
 
 Library::Library(/* args */)
@@ -208,6 +209,72 @@ bool Library::authenticate(std::string username, std::string password){
     }
 }
 
+bool Library::orderIssueBook(int stu_id, int b_id){
+
+    std::string msg = std::to_string(stu_id)+","+ std::to_string(b_id);
+
+    int ret;
+	mqd_t mqid;
+	struct mq_attr attr;
+	attr.mq_msgsize=256;
+	attr.mq_maxmsg=10;
+	mqid=mq_open("/mque",O_WRONLY|O_CREAT,0666,&attr);
+
+	if(mqid<0)
+	{
+		perror("mq_open");
+		exit(1);
+	}
+	// char str[]=msg;
+    const char *cstr = msg.c_str();
+	int len=strlen(cstr);
+	ret=mq_send(mqid,cstr,len+1,5);
+	if(ret<0)
+	{
+		perror("mq_send");
+		exit(2);
+	}
+	mq_close(mqid);
+    return true;
+
+
+
+}
+
+bool Library::acceptIssueBook(){
+
+
+
+
+    int ret,nbytes;
+	struct mq_attr attr;
+	attr.mq_msgsize=256;
+	attr.mq_maxmsg=10;
+	mqd_t mqid;
+	mqid=mq_open("/mque",O_RDONLY|O_CREAT,0666,&attr);
+	if(mqid<0)
+	{
+		perror("mq_open");
+		exit(1);
+	}
+	char buf[8192];
+	int maxlen=256;
+    u_int prio;
+	nbytes=mq_receive(mqid,buf,maxlen,&prio);
+	if(nbytes<0)
+	{
+		perror("mq_recv");
+		exit(2);
+	}
+	buf[nbytes]='\0';
+	printf("receive msg:%s,nbytes=%d,prio=%d\n",buf,nbytes,prio);
+	mq_close(mqid);
+    return true;
+
+
+
+}
+
 Library::~Library()
 {
     std::fstream fdes;
@@ -222,9 +289,40 @@ Library::~Library()
 
 
 
-// int main(){
-//     Library l1;
-//     l1.addBook(1, "Game of thrones", "George RR Mrtin", "Harper Voyager", 599, 801);
-//     // Book *ptr= l1.findBookByID(1);
-//     // std::cout<< ptr->GetId()<<std::endl;
-// }
+int main(){
+    Library l1;
+    // l1.addBook(1, "Game of thrones", "George RR Mrtin", "Harper Voyager", 599, 801);
+    // Book *ptr= l1.findBookByID(1);
+    // std::cout<< ptr->GetId()<<std::endl;
+    std::cout<<"Are you student or librarian? \nPress 1 for student and press 2 for Librarian"<<std::endl;
+    int input;
+    std::cin>>input;
+    if (input==1)
+    {
+        std::cout<<"Please enter your id"<<std::endl;
+        int s_id;
+        std::cin>>s_id;
+        std::cout<<"Please enter book id"<<std::endl;
+        int b_id;
+        std::cin>>b_id;
+        bool isOrderPlaced=l1.orderIssueBook(s_id, b_id);
+        if(isOrderPlaced){
+            std::cout<<"your order placed"<<std::endl;
+        }
+    }
+    else if (input==2)
+    {   
+        std::cout<<"Please Enter your Username"<<std::endl;
+        std::string username;
+        std::cin>>username;
+        std::cout<<"Please Enter your Password"<<std::endl;
+        std::string password;
+        std::cin>>password;
+        bool check = l1.authenticate(username, password);
+        if(check){
+            bool isOrderAccepted = l1.acceptIssueBook();
+        }
+        
+    }
+
+}
