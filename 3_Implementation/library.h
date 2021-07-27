@@ -8,6 +8,9 @@
 #include<unistd.h>
 #include <bits/stdc++.h>
 #include"list"
+#include<fstream>
+#include<sstream>
+#include<string>
 
 
 class Library
@@ -18,6 +21,9 @@ public:
     std::list<student> students;
     std::list<librarian> librarians;
     Library(/* args */);
+    void initialize_List();
+    void initialize_StudentList();
+    void initialize_LibrarianList();
     void addBook(int id, std::string title, std::string author, std::string publisher, int price, int page);
     void removeBookByID(int id);
     void displayAll();

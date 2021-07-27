@@ -8,6 +8,10 @@
 
 Library::Library(/* args */)
 {
+    
+}
+
+void Library::initialize_List(){
     int id;
     std::string title;
     std::string author;
@@ -43,6 +47,93 @@ Library::Library(/* args */)
         s3 << word;
         s3 >> page;
         books.emplace_back(id, title, author, publisher, price, page);
+        getline(fptr, temp);
+    }
+    fptr.close();
+}
+
+void Library::initialize_StudentList(){
+    int id, total_books_issued, fine_due, last_issued_book_id;
+    std::string name, role, address, date, status;
+    std::fstream fptr;
+    fptr.open("student.csv",std::ios::in);
+    std::string temp="";
+    std::string word = "";
+    getline(fptr,temp);
+    getline(fptr,temp);
+    while(fptr){
+        std::stringstream s(temp);
+        getline(s,word,',');
+        std:: stringstream s1;
+        s1<<word;
+        s1>>id;
+        getline(s,word,',');
+        name = word;
+        getline(s,word,',');
+        role = word; 
+        getline(s,word,',');
+        address = word; 
+        getline(s,word,',');
+        std:: stringstream s2;
+        s2<<word;
+        s2>>total_books_issued;
+        getline(s,word,',');
+        std:: stringstream s3;
+        s3<<word;
+        s3>>fine_due;      
+        getline(s,word,',');
+        std:: stringstream s4;
+        s4<<word;
+        s4>>last_issued_book_id;
+        getline(s,word,',');
+        date = word;
+        getline(s,word,',');
+        status = word;
+        students.push_back(student(name, id, role, address));
+        students.back().setTotalBookIssued(total_books_issued);
+        students.back().setFineDue(fine_due);
+        students.back().setLastIssuedBookId(last_issued_book_id);
+        students.back().setDate(date);
+        students.back().setStatus(status);
+        getline(fptr,temp);
+    }
+    fptr.close();
+}
+
+void Library::initialize_LibrarianList(){
+    int id;
+    std::string name, role, address, username, password;
+    std::fstream fptr;
+    fptr.open("library.csv", std::ios::in);
+    std::string temp="";
+    std::string word="";
+    getline(fptr, temp);
+    getline(fptr, temp);
+    while(fptr){
+        std::stringstream ss(temp);
+        getline(ss, word, ',');
+        std::stringstream s1;
+        s1 << word;
+        s1 >> id;
+
+        getline(ss, word, ',');
+        name = word;
+
+        getline(ss, word,',');
+        role = word;
+
+        getline(ss, word, ',');
+        address = word;
+
+        getline(ss, word, ',');
+        username = word;
+
+        getline(ss, word, ',');
+        password = word;
+
+        librarians.emplace_back(name, id, role, address);
+        librarians.back().setUsername(username);
+        librarians.back().setPassword(password);
         getline(fptr, temp);
     }
     fptr.close();
@@ -277,6 +368,7 @@ bool Library::acceptIssueBook(){
 
 Library::~Library()
 {
+    //for library class
     std::fstream fdes;
     fdes.open("library.csv", std::ios::out);
     fdes<<"ID,Title,Author,Publisher,Price,Pages"<<std::endl;
@@ -285,6 +377,27 @@ Library::~Library()
         fdes<< iter->GetId()<<","<<iter->GetTitle()<<","<<iter->GetAuthor()<<","<<iter->GetPublisher()
         <<","<<iter->GetPrice()<<","<<iter->GetPages()<<std::endl;
     }
+
+    //for student class
+    std::fstream fdes2;
+    fdes2.open("student.csv", std::ios::out);
+    fdes2<< "ID,Name,Role,Address,Total_Books_Issues,Fine_Due,Last_Issued_Book_ID,Date,Status"<<std::endl;
+    std::list<student> ::iterator iter2;
+    for(iter2 = students.begin(); iter2 != students.end(); iter2 ++ ){
+        fdes2<< iter2->getId()<<","<< iter2->getName()<<","<< iter2->getRole()<<","<< iter2->getAddress()<<","<< iter2->getTotalBooksIssued()<<","<< iter2->getFineDue()<<","<< iter2->getLastIssuedBookId()<<","<< iter2->getDate()<<","<< iter2->getStatus()<<std::endl;
+    }
+
+    //for librarian class
+    std::fstream fdes3;
+    fdes.open("librarian.csv", std::ios::out);
+    fdes2<< "ID,Name,Role,Address,Username,Password"<<std::endl;
+    std::list<librarian> ::iterator iter3;
+    for( iter3 = librarians.begin(); iter3 != librarians.end(); iter3 ++ ){
+        fdes3<< iter3->getId()<<","<< iter3->getName()<<","<< iter3->getRole()<<","<< iter3->getAddress()<<","<< iter3->getUsername()<<","<< iter3->getPassword()<<std::endl;
+    }
+    fdes.close();
+    fdes2.close();
+    fdes3.close();
 }
 
 
