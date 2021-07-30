@@ -25,6 +25,10 @@ void user::setRole(const std::string role){
     u_role = role;
 }
 
+std::string student::getDate() const{
+    return s_date;
+}
+
 std::string user::getRole() const{
     return u_role;
 }
