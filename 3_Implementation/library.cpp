@@ -431,38 +431,41 @@ Library::~Library()
 
 int main(){
     Library l1;
+    l1.initialize_List();
     // l1.addBook(1, "Game of thrones", "George RR Mrtin", "Harper Voyager", 599, 801);
     // Book *ptr= l1.findBookByID(1);
     // std::cout<< ptr->GetId()<<std::endl;
-    std::cout<<"Are you student or librarian? \nPress 1 for student and press 2 for Librarian"<<std::endl;
-    int input;
-    std::cin>>input;
-    if (input==1)
-    {
-        std::cout<<"Please enter your id"<<std::endl;
-        int s_id;
-        std::cin>>s_id;
-        std::cout<<"Please enter book id"<<std::endl;
-        int b_id;
-        std::cin>>b_id;
-        bool isOrderPlaced=l1.orderIssueBook(s_id, b_id);
-        if(isOrderPlaced){
-            std::cout<<"your order placed"<<std::endl;
-        }
-    }
-    else if (input==2)
-    {   
-        std::cout<<"Please Enter your Username"<<std::endl;
-        std::string username;
-        std::cin>>username;
-        std::cout<<"Please Enter your Password"<<std::endl;
-        std::string password;
-        std::cin>>password;
-        bool check = l1.authenticate(username, password);
-        if(check){
-            bool isOrderAccepted = l1.acceptIssueBook();
-        }
+    // std::cout<<"Are you student or librarian? \nPress 1 for student and press 2 for Librarian"<<std::endl;
+    // int input;
+    // std::cin>>input;
+    // if (input==1)
+    // {
+    //     std::cout<<"Please enter your id"<<std::endl;
+    //     int s_id;
+    //     std::cin>>s_id;
+    //     std::cout<<"Please enter book id"<<std::endl;
+    //     int b_id;
+    //     std::cin>>b_id;
+    //     bool isOrderPlaced=l1.orderIssueBook(s_id, b_id);
+    //     if(isOrderPlaced){
+    //         std::cout<<"your order placed"<<std::endl;
+    //     }
+    // }
+    // else if (input==2)
+    // {   
+    //     std::cout<<"Please Enter your Username"<<std::endl;
+    //     std::string username;
+    //     std::cin>>username;
+    //     std::cout<<"Please Enter your Password"<<std::endl;
+    //     std::string password;
+    //     std::cin>>password;
+    //     bool check = l1.authenticate(username, password);
+    //     if(check){
+    //         bool isOrderAccepted = l1.acceptIssueBook();
+    //     }
         
-    }
+    // }
+    std::cout<<l1.books.size()<<std::endl;
+    std::cout<<l1.students.size()<<std::endl;
 
 }
