@@ -104,7 +104,7 @@ void Library::initialize_LibrarianList(){
     int id;
     std::string name, role, address, username, password;
     std::fstream fptr;
-    fptr.open("library.csv", std::ios::in);
+    fptr.open("librarian.csv", std::ios::in);
     std::string temp="";
     std::string word="";
     getline(fptr, temp);
@@ -416,8 +416,8 @@ Library::~Library()
 
     //for librarian class
     std::fstream fdes3;
-    fdes.open("librarian.csv", std::ios::out);
-    fdes2<< "ID,Name,Role,Address,Username,Password"<<std::endl;
+    fdes3.open("librarian.csv", std::ios::out);
+    fdes3<< "ID,Name,Role,Address,Username,Password"<<std::endl;
     std::list<librarian> ::iterator iter3;
     for( iter3 = librarians.begin(); iter3 != librarians.end(); iter3 ++ ){
         fdes3<< iter3->getId()<<","<< iter3->getName()<<","<< iter3->getRole()<<","<< iter3->getAddress()<<","<< iter3->getUsername()<<","<< iter3->getPassword()<<std::endl;
