@@ -29,7 +29,7 @@ class Book {
         std::string GetPublisher() const;
         void SetPublisher(std::string publisher);
         friend void operator<<(std::ostream& os, const Book& ref);
-        void diplay();
+        void display();
 
 };
 

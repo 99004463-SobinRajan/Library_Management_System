@@ -58,7 +58,7 @@ void Book::SetPublisher(std::string publisher){
     m_publisher=publisher;
 }
 
-void Book::diplay(){
+void Book::display(){
     std::cout<<m_id<<std::endl;
     std::cout<<m_title<<std::endl;
     std::cout<<m_author<<std::endl;
