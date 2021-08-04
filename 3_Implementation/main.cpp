@@ -63,8 +63,8 @@ int main(){
         {
             std::string author;
             std::cout<<"Enter the author to search"<<std::endl;
+            std::cin.ignore();
             std::getline(std::cin,author);
-            // std::cin>>author;
             std::list<Book> temp=l1.fiandAllBookByAuthor(author);
             std::list<Book>::iterator iter;
             for ( iter = temp.begin(); iter!=temp.end(); iter++)
@@ -84,7 +84,8 @@ int main(){
         {
             std::string publisher;
             std::cout<<"Enter the publisher to search"<<std::endl;
-            std::cin>>publisher;
+            std::cin.ignore();
+            std::getline(std::cin,publisher);
             std::cout<<l1.books.size()<<std::endl;
             double avg=l1.findAveragePriceByPublisher(publisher);
             std::cout<<"Average price of books by publisher: "<<avg<<std::endl;
@@ -115,7 +116,8 @@ int main(){
         {
             std::string publisher;
             std::cout<<"Enter the publisher to search"<<std::endl;
-            std::cin>>publisher; 
+            std::cin.ignore();
+            std::getline(std::cin,publisher);
             Book ptr=l1.findMinOfPublisher(publisher);
             ptr.display();  
             break;
