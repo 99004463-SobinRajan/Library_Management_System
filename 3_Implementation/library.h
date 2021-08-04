@@ -43,6 +43,10 @@ public:
     bool authenticate(std::string username, std::string password);
     bool orderIssueBook(int stu_id, int b_id);
     bool acceptIssueBook();
+    bool orderReturn(int stu_id);
+    bool acceptReturn();
+    int calculateFine(const char* date);
+    int finePay(int s_id, int payment);
 
 
     ~Library();

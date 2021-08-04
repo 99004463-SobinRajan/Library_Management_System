@@ -156,7 +156,7 @@ void Library::removeBookByID(int id){
 void Library::displayAll(){
     std::list<Book> :: iterator p;
     for(p=books.begin();p!=books.end();p++){
-        p->diplay();
+        p->display();
     }
 }
 
@@ -315,45 +315,39 @@ bool Library::orderIssueBook(int stu_id, int b_id){
     std::string msg = std::to_string(stu_id)+","+ std::to_string(b_id);
 
     int ret;
-	mqd_t mqid;
+	mqd_t mqissue;
 	struct mq_attr attr;
 	attr.mq_msgsize=256;
 	attr.mq_maxmsg=10;
-	mqid=mq_open("/mque",O_WRONLY|O_CREAT,0666,&attr);
+	mqissue=mq_open("/mque",O_WRONLY|O_CREAT,0666,&attr);
 
-	if(mqid<0)
+	if(mqissue<0)
 	{
 		perror("mq_open");
 		exit(1);
 	}
-	// char str[]=msg;
     const char *cstr = msg.c_str();
 	int len=strlen(cstr);
-	ret=mq_send(mqid,cstr,len+1,5);
+	ret=mq_send(mqissue,cstr,len+1,5);
 	if(ret<0)
 	{
 		perror("mq_send");
 		exit(2);
 	}
-	mq_close(mqid);
+	mq_close(mqissue);
     return true;
-
-
 
 }
 
 bool Library::acceptIssueBook(){
 
-
-
-
     int ret,nbytes;
 	struct mq_attr attr;
 	attr.mq_msgsize=256;
 	attr.mq_maxmsg=10;
-	mqd_t mqid;
-	mqid=mq_open("/mque",O_RDONLY|O_CREAT,0666,&attr);
-	if(mqid<0)
+	mqd_t mqissue;
+	mqissue=mq_open("/mque",O_RDONLY|O_CREAT,0666,&attr);
+	if(mqissue<0)
 	{
 		perror("mq_open");
 		exit(1);
@@ -361,37 +355,142 @@ bool Library::acceptIssueBook(){
 	char buf[8192];
 	int maxlen=256;
     u_int prio;
-	nbytes=mq_receive(mqid,buf,maxlen,&prio);
+	nbytes=mq_receive(mqissue,buf,maxlen,&prio);
 	if(nbytes<0)
 	{
 		perror("mq_recv");
 		exit(2);
 	}
 	buf[nbytes]='\0';
-	// printf("receive msg:%s,nbytes=%d,prio=%d\n",buf,nbytes,prio);
+	printf("receive msg:%s,nbytes=%d,prio=%d\n",buf,nbytes,prio);
     std::string str = buf;
     std::string delimiter = ",";
-    int sid = std::stoi(str.substr(0, str.find(delimiter)));
-    int bid = std::stoi(str.substr(str.find(delimiter), str.size()));
-    student *stu = getStudentById(sid);
-    Book *book = findBookByID(bid);
+    std::string sid = str.substr(0, str.find(delimiter));
+    std::string bid = str.substr(str.find(delimiter)+1, str.size());
+    int n_sid = std::stoi(sid);
+    int n_bid = std::stoi(bid);
+    std::cout<<"sid "<<sid<<std::endl;
+    std::cout<<"bid "<<bid<<std::endl;
+    student *stu = getStudentById(n_sid);
+    Book *book = findBookByID(n_bid);
 
     stu->setLastIssuedBookId(book->GetId());
 
-    std::time_t t = std::time(0);   // get time now
+    std::time_t t = std::time(0);
     std::tm* now = std::localtime(&t);
     std::stringstream date;
-    date<<now->tm_mday<<'/'<<(now->tm_mon + 1)<<'/'<<(now->tm_year + 1900) <<"\n";
+    date<<now->tm_mday<<'/'<<(now->tm_mon + 1)<<'/'<<(now->tm_year + 1900);
     std::string datee = date.str();
     stu->setDate(datee);
     stu->setFineDue(0);
-	mq_close(mqid);
+    stu->setStatus("issued");
+	mq_close(mqissue);
     std::cout<<"Book Issued"<<std::endl;
     return true;
 
+}
 
+bool Library::orderReturn(int stu_id){
+
+    std::string msg = std::to_string(stu_id);
+
+    int ret;
+	mqd_t mqreturn;
+	struct mq_attr attr;
+	attr.mq_msgsize=256;
+	attr.mq_maxmsg=10;
+	mqreturn=mq_open("/mque",O_WRONLY|O_CREAT,0666,&attr);
+
+	if(mqreturn<0)
+	{
+		perror("mq_open");
+		exit(1);
+	}
+    const char *cstr = msg.c_str();
+	int len=strlen(cstr);
+	ret=mq_send(mqreturn,cstr,len+1,5);
+	if(ret<0)
+	{
+		perror("mq_send");
+		exit(2);
+	}
+	mq_close(mqreturn);
+    return true;
 
 }
+
+bool Library::acceptReturn(){
+    
+    int ret,nbytes;
+	struct mq_attr attr;
+	attr.mq_msgsize=256;
+	attr.mq_maxmsg=10;
+	mqd_t mqreturn;
+	mqreturn=mq_open("/mque",O_RDONLY|O_CREAT,0666,&attr);
+	if(mqreturn<0)
+	{
+		perror("mq_open");
+		exit(1);
+	}
+	char buf[8192];
+	int maxlen=256;
+    u_int prio;
+	nbytes=mq_receive(mqreturn,buf,maxlen,&prio);
+	if(nbytes<0)
+	{
+		perror("mq_recv");
+		exit(2);
+	}
+	buf[nbytes]='\0';
+	printf("receive msg:%s,nbytes=%d,prio=%d\n",buf,nbytes,prio);
+    std::string str = buf;
+    int n_sid = std::stoi(str);
+    student *stu = getStudentById(n_sid);
+    const char *cstr = stu->getDate().c_str();
+    int totalFine = this->calculateFine(cstr);
+    stu->setFineDue(totalFine);
+    stu->setDate("00/00/0000");
+    stu->setStatus("idle");
+    mq_close(mqreturn);
+    return true;
+}
+
+int Library::calculateFine(const char* date){
+
+    int dd, mm, yy;
+    struct tm when = {0};
+    sscanf(date, "%d/%d/%d", &dd, &mm, &yy);
+
+    when.tm_year = yy-1900;
+    when.tm_mon = mm-1;
+    when.tm_mday = dd;
+
+    time_t converted;
+    converted = mktime(&when);
+
+    time_t t= std::time(0);  
+    tm* now = localtime(&t);
+    int total=0;
+    double diffSecss = difftime(t, converted);
+    total = int((diffSecss/86400)-7)*5;
+    if(total>=0){
+        return total;
+    }
+    else{
+        return 0;
+    }
+    
+
+}
+int Library::finePay(int s_id, int payment){
+    student *stu = getStudentById(s_id);
+    int fine = stu->getFineDue();
+    int remainingFine = fine-payment;
+    stu->setFineDue(remainingFine);
+    return fine;
+
+}
+
 
 Library::~Library()
 {
@@ -425,47 +524,4 @@ Library::~Library()
     fdes.close();
     fdes2.close();
     fdes3.close();
-}
-
-
-
-int main(){
-    Library l1;
-    l1.initialize_List();
-    // l1.addBook(1, "Game of thrones", "George RR Mrtin", "Harper Voyager", 599, 801);
-    // Book *ptr= l1.findBookByID(1);
-    // std::cout<< ptr->GetId()<<std::endl;
-    // std::cout<<"Are you student or librarian? \nPress 1 for student and press 2 for Librarian"<<std::endl;
-    // int input;
-    // std::cin>>input;
-    // if (input==1)
-    // {
-    //     std::cout<<"Please enter your id"<<std::endl;
-    //     int s_id;
-    //     std::cin>>s_id;
-    //     std::cout<<"Please enter book id"<<std::endl;
-    //     int b_id;
-    //     std::cin>>b_id;
-    //     bool isOrderPlaced=l1.orderIssueBook(s_id, b_id);
-    //     if(isOrderPlaced){
-    //         std::cout<<"your order placed"<<std::endl;
-    //     }
-    // }
-    // else if (input==2)
-    // {   
-    //     std::cout<<"Please Enter your Username"<<std::endl;
-    //     std::string username;
-    //     std::cin>>username;
-    //     std::cout<<"Please Enter your Password"<<std::endl;
-    //     std::string password;
-    //     std::cin>>password;
-    //     bool check = l1.authenticate(username, password);
-    //     if(check){
-    //         bool isOrderAccepted = l1.acceptIssueBook();
-    //     }
-        
-    // }
-    std::cout<<l1.books.size()<<std::endl;
-    std::cout<<l1.students.size()<<std::endl;
-
 }

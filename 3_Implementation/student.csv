@@ -1,2 +1,3 @@
 ID,Name,Role,Address,Total_Books_Issues,Fine_Due,Last_Issued_Book_ID,Date,Status
 1,shubham,student,Raipur,5,0,1,00/00/0000,idle
+2,ram,student,Delhi,2,40,2,00/00/0000,idle

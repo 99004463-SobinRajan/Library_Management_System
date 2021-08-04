@@ -34,7 +34,7 @@ TEST(findAllBookByAuthor, BookFound) {
     ASSERT_EQ(2, temp.size());
 }
 
-TEST(findAllBookByAuthor, BookNotFound) {
+TEST(findAllBookByAuthor, BookNotFound1) {
     Library l1;
     std::list<Book> temp=l1.fiandAllBookByAuthor("Chetan Bhagat");
     ASSERT_EQ(1, temp.size());
