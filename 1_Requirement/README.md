@@ -19,8 +19,34 @@ Library management system are useful for such organization:
 - Public leading libraries
 
 ## Cost and Features
-![Description](Link to Pic)
--- Content 
+| Time | Features  |	               Cost          |
+|:----:|:---------:|:----------------------------:|
+| 1960 |The entire management system was carried out on paper|10K|                  	
+| 2000 |The mangement was computer based |        30K      |                  	
+| 2010 | The management syestem is being carried out with computer application |           100K        |   
+
+The Features of Library Management System are:
+1. Find Book by ID - Finding the Book by ID.
+2. Find Average Price - Finding the Average Price Books present in library.
+3. Display all Books - Display all the Books present in the Library.
+4. Book With max Pages - Displaying the book with Max pages. 
+5. Search Book by Author - Searching the Book with the Author Name.
+6. Book with Minimum Price - Displaying the Book with Minimum Price.
+7. Average Price by Publisher - Displaying the average price of its publisher.
+8. Count Books in a given Range - Count the number of books present in library in given range.
+9. count book less than the given range - Count the number of books present in library less than the given range.
+10. Find By Publisher - Finding the Minimum Price of Book of Searched publisher
+11. Librarian Specific Task 
+    - Accept Issue Book - Accept the issue request by the student.
+    - Accept Book return - Accept the Book return by the student.
+    - Add book - Add book to library.
+    - Remove Book - Remove Book from Library.
+    - Get student by Id - Get the Student information bu its ID
+    - Get Librarian By username - get libraian information by its username.
+12. Issue a Book - Student Issuing the Book, for approval goes to librarian for  approval.
+13. Return a Book - Student Returning the Book, for approval goes to librarian for approval.
+    
+    
 
 ## Ageing
 ### Past
@@ -38,38 +64,58 @@ Library management system are useful for such organization:
 - Man power may not be needed to store information.
 
 ## Defining Our System
-    -- TBD
+![defining](flowchart-library.png)
 ## SWOT ANALYSIS
-![SWOT-Sample](Link to Pic)
+![SWOT-Sample](SWOT-library.png)
 
 # 4W&#39;s and 1&#39;H
 
 ## Who:
 
-**TBD**
+* The System Targets Schools, University, Colleges, and Public Libraries where a lot of Student or Customer come every day.
 
 ## What:
 
-**TBD**
+* This System holds the data of all the books present in library, which create fast and clear communication between student and librarian. Student can issue book and return book.
 
 ## When:
 
-**TBD**
+* When sudent want to search for the book and issue it.
 
 ## Where:
 
-**TBD**
+* The System will be hosted at in-house server within the School or University boundary.
 
 ## How:
 
-**TBD**
+* This Software will be desktop based application. a Student can search for the book through the internet, but if he/she wants to issue or return book then he/she has to present in the library.
 
 # Detail requirements
 ## High Level Requirements:
---- TBD in Tabular Format 
--- ID | Description | Status (Implemented/Future)
+| ID | Feature | Description | Status (Implemented/Future) |
+|----|---------|-------------|-----------------------------|
+| HR01 | Student | System will help Student to search for book through differnt manner and to issue/return book after that request goes to librarian to approve  |  Implemented|
+| HR02 | Management | System will help the Librarian to approve the book that student has requested, Add new book, View Student information  | Implemented |
 
 
 ##  Low level Requirements:
---- TBD in Tabular Format 
--- ID | Description | Status (Implemented/Future)
+| Sr no. | Feature | Description | Status (Implemented/Future) | HL ID |
+|--------|---------|-------------|-----------------------------|-------|
+| SF01 | Find Book by ID | Finding the Book by ID |Implemented | HR01 |
+| SF02 | Find Average Price | Finding the Average Price Books present in library |Implemented | HR01 |
+| SF03 | Display all Books | Display all the Books present in the Library |Implemented | HR01 |
+| SF04 | Book With max Pages | Displaying the book with Max pages |Implemented | HR01 |
+| SF05 | Search Book by Author | Searching the Book with the Author Name |Implemented | HR01 |
+| SF06 | Book with Minimum Price | Displaying the Book with Minimum Price |Implemented | HR01 |
+| SF07 | Average Price by Publisher | Displaying the average price of its publisher. |Implemented | HR01 |
+| SF08 | Count Books in a given Range | Count the number of books present in library in given range | Implemented| HR01 |
+| SF09 | count book less than the given range | Count the number of books present in library less than the given range | Implemented| HR01 |
+| SF10 | Find By Publisher | Finding the Minimum Price of Book of Searched publisher | Implemented| HR01 |
+| SF11 | Issue a Book | Student Issuing the Book, for approval goes to librarian for  approval | Implemented| HR01 |
+| SF12 | Return a Book | Student Returning the Book, for approval goes to librarian for approval | Implemented| HR01 |
+| LF01 | Accept Issue Book | Accept the issue request by the student |Implemented | HR02 |
+| LF02 | Accept Book return | Accept the Book return by the student | Implemented| HR02 |
+| LF03 | Add book | Add book to library |Implemented | HR02 |
+| LF04 | Remove Book | Remove Book from Library | Implemented| HR02 |
+| LF05 | Get student by Id | Get the Student information bu its ID |Implemented | HR02 |
+| LF06 | Get Librarian By username | get libraian information by its username | Implemented| HR02 |
