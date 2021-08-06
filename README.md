@@ -1,8 +1,8 @@
 # Library_Management_System
 
-| Build | Code Quality |   code Quality   | Unity | [Git Inspector](using github.io option) |
-|-----------|---------------|----------------|------------|-------------------|
-| [![C/C++ Build Status](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-build-status.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-build-status.yml) | [![C/C++ Code Coverge](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/c-cpp.yml) |
+| Build | Code Quality | [Git Inspector](using github.io option) |
+|-----------|------------|-------------------|
+| [![C/C++ Build Status](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-build-status.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-build-status.yml) | [![C/C++ Static Code Analysis](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-static.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-static.yml) | [![C/C++ - Git Inspector](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-git-inspector.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-git-inspector.yml) |
 
 ## About
 ![logo image](library.jpg)
