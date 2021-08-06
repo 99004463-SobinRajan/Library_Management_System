@@ -4,7 +4,7 @@ all.out:book.cpp library.cpp user.cpp main.cpp
 run:all.out
 	./all.out
 test:book.cpp library.cpp user.cpp tests.cpp
-	g++ book.cpp library.cpp user.cpp test.cpp -lrt -lpthread -o all.out
+	g++ book.cpp library.cpp user.cpp test.cpp -lrt -lpthread
 cppcheck:book.cpp library.cpp user.cpp tests.cpp -o all.out
 	cppcheck g++ book.cpp library.cpp user.cpp tests.cpp
 valgrind:book.cpp library.cpp user.cpp tests.cpp
