@@ -95,7 +95,7 @@ The Features of Library Management System are:
 | ID | Feature | Description | Status (Implemented/Future) |
 |----|---------|-------------|-----------------------------|
 | HR01 | Student | System will help Student to search for book through differnt manner and to issue/return book after that request goes to librarian to approve  |  Implemented|
-| HR02 | Management | System will help the Librarian to approve the book that student has requested, Add new book, View Student information  | Implemented |
+| HR02 | Librarian | System will help the Librarian to approve the book that student has requested, Add new book, View Student information  | Implemented |
 
 
 ##  Low level Requirements:
