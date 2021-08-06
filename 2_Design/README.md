@@ -2,12 +2,15 @@
 
 ## High Level Design 
 
---- TBD Structural and Behavioural Diagram
-![HighLevelStructuralDiagram](Link to Pic)
-![HighLevelBehaviouralDiagram](Link to Pic)
+### Class Diagram
+![HighLevelStructuralDiagram](class_diagram_library.png)
+
+### Use Case Diagram
+![HighLevelBehaviouralDiagram](use-case-library.png)
 
 ## Low Level Design 
 
---- TBD Structural and Behavioural Diagram
-![FeaturesLevelStructuralDiagram](Link to Pic)
-![FeaturesBehaviouralDiagram](Link to Pic)
+### Activity Diagram of Issue Book
+![FeaturesLevelStructuralDiagram](low-level-1-library.png)
+### Activity Diagram of Return Book
+![FeaturesBehaviouralDiagram](low-level-2-library.png)
