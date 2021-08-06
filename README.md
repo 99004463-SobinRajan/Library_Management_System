@@ -1,5 +1,9 @@
 # Library_Management_System
 
+| Build | Code Quality |   code Quality   | Unity | [Git Inspector](using github.io option) |
+|-----------|---------------|----------------|------------|-------------------|
+| [![C/C++ Build Status](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-build-status.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/cpp-build-status.yml) | [![C/C++ Code Coverge](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/99004463-SobinRajan/Library_Management_System/actions/workflows/c-cpp.yml) |
+
 ## About
 ![logo image](library.jpg)
 
